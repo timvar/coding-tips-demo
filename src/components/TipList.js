@@ -1,22 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Tip from "./Tip";
-import { useTips } from "../hooks/customHooks";
-import axios from 'axios';
 
-export default function TipList() {
-  const { tips } = useTips();
-
-  useEffect( () => {
-    axios.get('https://ww9su1yhrf.execute-api.eu-west-1.amazonaws.com/default/tips')
-    .then( response => {
-      console.log(response.data);
-    })
-    .catch( err => console.log('Error msg: ', err));
-
-    console.log('Tipslist');
-  }
-  
-  );  
+export default function TipList({tips}) {
 
   return (
     <ul className="tip-list">

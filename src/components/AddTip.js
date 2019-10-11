@@ -1,36 +1,10 @@
 import React, { useState } from "react";
-import { useInput} from '../hooks/customHooks';
-import { useTips } from "../hooks/customHooks";
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button, Paper, Container } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import { useStyles } from '../styles';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 400,
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
-    width: 200,
-  },
-}));
-
-
-export default function AddTipForm() {
-  const [authorProps, resetAuthor] = useInput("");
-  const [dateProps, resetDate] = useInput(0);
-  const [categoryProps, resetCategory] = useInput("");
-  const [tipProps, resetTip] = useInput("");
-  const { addTip } = useTips();
+export default function AddTipForm( {doFetch}) {
   
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -42,16 +16,6 @@ export default function AddTipForm() {
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
-/*
-  const submit = e => {
-    e.preventDefault();
-    addTip(authorProps.value, dateProps.value, categoryProps.value, tipProps.value);
-    resetAuthor();
-    resetDate();
-    resetCategory();
-    resetTip();
-  };
-*/
 
   const submit = e => {
     e.preventDefault();
@@ -60,12 +24,14 @@ export default function AddTipForm() {
     axios.post('https://ww9su1yhrf.execute-api.eu-west-1.amazonaws.com/default/tips', values)
     .then( response => {
       console.log(response.data);
+      doFetch('https://ww9su1yhrf.execute-api.eu-west-1.amazonaws.com/default/tips')
+
     })
     .catch( err => console.log('Error msg: ', err));
-
   };
 
   return (
+    <Paper>
     <form onSubmit={submit} className={classes.container} noValidate autoComplete="off">
       <TextField
         label="author"
@@ -73,6 +39,7 @@ export default function AddTipForm() {
         value={values.author}
         onChange={handleChange('author')}
         margin="normal"
+        fullWidth
       />
       <TextField
         label="category"
@@ -80,6 +47,7 @@ export default function AddTipForm() {
         value={values.category}
         onChange={handleChange('category')}
         margin="normal"
+        fullWidth
       />
       <TextField
         label="tip"
@@ -87,15 +55,19 @@ export default function AddTipForm() {
         value={values.tip}
         onChange={handleChange('tip')}
         margin="normal"
+        fullWidth
       />
+      <Container style={{height:100, textAlign: 'center'}}>
       <Button 
         type="submit"
-        fullWidth
-        variant="contained"
+        variant="outlined"
         color="primary"
+        
       >
         Add
       </Button>
+      </Container>
     </form>
+    </Paper>
   );
 }

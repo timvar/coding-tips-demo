@@ -1,25 +1,28 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import { AppBar }  from '@material-ui/core';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 
-const Navbar = (props) => {
+const Navbar = ({classes}) => {
   return (
-    <div className="container">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <Link className="navbar-brand" to="/">Coding Tips</Link>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/tips">Tips</Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      <Toolbar className={classes.toolbar}>
+        <Typography variant="h6" color="primary" noWrap className={classes.toolbarTitle}>
+          Some tips
+        </Typography>
+        <nav>
+          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+            Support
+          </Link>
+        </nav>
+        <Button href="#" color="primary" variant="outlined" className={classes.link}>
+          Login
+        </Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
 export default Navbar;
-
