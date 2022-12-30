@@ -38,7 +38,7 @@
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "jsdom": "^15.2.0",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "react-addons-test-utils": "^15.6.2"
   }
 }
